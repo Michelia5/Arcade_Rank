@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Videogames</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-white">Videogames</h1>
+        <div class="mt-4">
+            <a href="/add-videogame" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-700">Add Videogame</a>
+        </div>
+        <table class="min-w-full table-auto w-full bg-white border border-gray-300 mt-4">
+            <thead>
+                <tr class="bg-gray-200 text-black">
+                    <th class="py-2 px-4 border-b text-center">ID</th>
+                    <th class="py-2 px-4 border-b text-center">Name</th>
+                    <th class="py-2 px-4 border-b text-center">Difficulty</th>
+                    <th class="py-2 px-4 border-b text-center">Rankings</th>
+                    <th class="py-2 px-4 border-b text-center">Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="videogame : ${videogames}">
+                    <tr class="border-b hover:bg-gray-100 text-black">
+                        <td class="py-2 px-4 text-center" th:text="${videogame.id}"></td>
+                        <td class="py-2 px-4 text-center" th:text="${videogame.name}"></td>
+                        <td class="py-2 px-4 text-center" th:text="${videogame.difficultyCoefficient}"></td>
+                        <td class="py-2 px-4 text-center">
+                            <a th:href="@{/rankings/{id}(id=${videogame.id})}" 
+                               class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-700">
+                               View Rankings
+                            </a>
+                        </td>  
+                        <td class="py-2 px-4 text-center">
+                            <form action="/delete-videogame" method="POST">
+                                <input type="hidden" name="id" th:value="${videogame.id}" />
+                                <button th:attr="onclick='return confirmDelete(' + ${videogame.id} + ', \'' + ${videogame.name} + '\')'" 
+                                        type="submit" 
+                                        class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>                      
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-700">Go to Home</a>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(videogameId, name) {
+            if (confirm("Are you sure you want to delete the videogame '" + name + "' (ID: " + videogameId + ")?")) {
+                return true;
+            }
+            return false;
+        }
+    </script>  
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking - ${videogame.name}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold text-center text-white">
+            Ranking for <span th:text="${videogame.name}"></span>
+        </h1>
+
+        <div class="mt-8">
+            <table class="min-w-full table-auto w-full bg-white border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-black">
+                        <th class="py-2 px-4 border-b text-center">Position</th>
+                        <th class="py-2 px-4 border-b text-center">Username</th>
+                        <th class="py-2 px-4 border-b text-center">Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="entry, iterStat : ${ranking}">
+                        <tr class="border-b hover:bg-gray-100 text-black">
+                            <td class="py-2 px-4 text-center" th:text="${iterStat.index + 1}"></td>
+                            <td class="py-2 px-4 text-center" th:text="${entry.username}"></td>
+                            <td class="py-2 px-4 text-center" th:text="${entry.totalScore}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+            <!-- If there are no scores, show a message -->
+            <div th:if="${noScoresMessage}" class="text-3xl text-center text-yellow-500 mt-8 mb-24">
+                <p th:text="${noScoresMessage}"></p>
+            </div>
+        </div>
+        <div class="mt-6 text-center">
+            <a href="/videogames" class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-700">Go back to Videogames List</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Players</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-white">Players</h1>
+        <div class="mt-4">
+            <a href="/add-player" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Add Player</a>
+        </div>
+        <table class="min-w-full table-auto w-full bg-white border border-gray-300 mt-4">
+            <thead>
+                <tr class="bg-gray-200 text-black">
+                    <th class="py-2 px-4 border-b text-center">ID</th>
+                    <th class="py-2 px-4 border-b text-center">Username</th>
+                    <th class="py-2 px-4 border-b text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <th:block th:each="player : ${players}">
+                    <tr class="border-b hover:bg-gray-100 text-black">
+                        <td class="py-2 px-4 text-center" th:text="${player.id}"></td>
+                        <td class="py-2 px-4 text-center" th:text="${player.username}"></td>
+                        <td class="py-2 px-4 text-center">
+                            <form action="/delete-player" method="POST">
+                                <input type="hidden" name="id" th:value="${player.id}" />
+                                <button th:attr="onclick='return confirmDelete(' + ${player.id} + ', \'' + ${player.username} + '\')'" 
+                                        type="submit" 
+                                        class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-700">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-blue-500 text-white  py-2 px-4 rounded hover:bg-blue-700">Go to Home</a>
+        </div>
+    </div>
+    <script>
+        function confirmDelete(playerId, username) {
+            if (confirm("Are you sure you want to remove the player '" + username + "' (ID: " + playerId + ")?")) {
+                return true;
+            }
+            return false;
+        }
+    </script>    
+</body>
+</html>

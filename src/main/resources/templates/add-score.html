@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-white">
+
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center text-white mb-6">Add a new Score</h1>
+
+        <div th:if="${error}" class="text-2xl text-red-500 text-center mb-4">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form action="/add-score" method="POST" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="playerId" class="block text-sm font-medium text-gray-700">User ID</label>
+                <select id="player" name="playerId" class="w-full p-2 mt-2 border border-gray-300 rounded-md text-black">
+                    <option value="">Select a Player</option=>
+                    <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.username}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="videogameId" class="block text-sm font-medium text-gray-700">Videogame ID</label>
+                <select id="videogame" name="videogameId" class="w-full p-2 mt-2 border border-gray-300 rounded-md text-black">
+                    <option value="">Select a Videogame</option=>
+                    <option th:each="game : ${videogames}" th:value="${game.id}" th:text="${game.name}"></option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="score" class="block text-sm font-medium text-gray-700">Score</label>
+                <input type="number" id="score" name="score" required class="w-full p-2 mt-2 border border-gray-300 rounded-md text-black placeholder-black" placeholder="Punteggio ottenuto">
+            </div>
+            <button type="submit" class="w-full py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">Add Game</button>
+        </form>
+
+        <div class="mt-6 text-center">
+            <a href="/" class="bg-red-500 text-white  py-2 px-4 rounded hover:bg-red-700">Go to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>
