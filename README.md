@@ -7,15 +7,14 @@ This project is a simple management system for arcade games and players. It allo
 ## Features
 - Add and manage players.
 - Add scores for players in different games.
-- Display a ranking of the top scores.
-- Option to delete players and scores.
+- Display a ranking of the top scores globally or for every game.
+- Option to delete players and videogames.
 
 ## Technologies Used
-- **Backend**: Java, Spring Framework, JPA (Hibernate)
+- **Backend**: Spring Framework
 - **Frontend**: Thymeleaf, TailwindCSS
-- **Database**: H2 Database (or another database can be configured)
+- **Database**: PostgreSQL (You can use any others Database but you have to modify the application.properties file)
 - **Build Tool**: Maven
-- **Version Control**: GitHub
 
 ## How to Run the Project
 
@@ -28,7 +27,7 @@ This project is a simple management system for arcade games and players. It allo
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/arcade-rank.git
+   git clone https://github.com/Michelia5/Arcade_Rank
    ```
 2. Navigate to the project directory:
    ```bash
@@ -52,11 +51,11 @@ arcade-rank/
 │   │   │   │       └── arcade/
 │   │   │   │           └── arcade_rank/
 │   │   │   │               ├── controller_view/
+│   │   │   │               ├── dto
 │   │   │   │               ├── model/
 │   │   │   │               ├── repository/
 │   │   │   │               └── service/
 │   │   └── resources/
-│   │       ├── static/
 │   │       ├── templates/
 │   │       └── application.properties
 ├── pom.xml
